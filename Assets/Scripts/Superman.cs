@@ -9,6 +9,7 @@ public class Superman : MonoBehaviour
     float jumpForce;
     bool onGround;
     Rigidbody rb;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class Superman : MonoBehaviour
         jumpForce = 10.0f;
         onGround = false;
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,11 @@ public class Superman : MonoBehaviour
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
+            anim.Play(onGround ? "Running" : "Falling");
+        }
+        else
+        {
+            anim.Play(onGround ? "Idle" : "Falling");
         }
 
         if (onGround && Input.GetKeyDown(KeyCode.Space))
