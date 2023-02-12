@@ -43,11 +43,11 @@ public class Superman : MonoBehaviour
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
-            anim.Play(onGround ? "Running" : "Falling");
+            anim.SetBool("IsRunning", true);
         }
         else
         {
-            anim.Play(onGround ? "Idle" : "Falling");
+            anim.SetBool("IsRunning", false);
         }
 
         if (onGround && Input.GetKeyDown(KeyCode.Space))
@@ -59,10 +59,12 @@ public class Superman : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         onGround = true;
+        anim.SetBool("IsFalling", false);
     }
 
     private void OnCollisionExit(Collision collision)
     {
         onGround = false;
+        anim.SetBool("IsFalling", true);
     }
 }
